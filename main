@@ -1,7 +1,7 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-df = pd.read_csv(r'c:\Users\дима\Downloads\melb_data.csv.csv')
+df = pd.read_csv(r'melb_data.csv')
 print(df)
 #функция для квадратных метров
 def add_price_ppm2(df: pd.DataFrame,
@@ -36,7 +36,7 @@ def summarize_market(df: pd.DataFrame,
     if top_n:
         out = out.head(top_n)
     return out.reset_index()
-df = pd.read_csv(r'c:\Users\дима\Downloads\melb_data.csv.csv')
+df = pd.read_csv(r'melb_data.csv')
 df2 = add_price_ppm2(df)
 #можно выбирать по чему делать расчет
 summarize_market(df2, group_level="Regionname", metric="PricePerM2", top_n=None)
