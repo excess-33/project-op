@@ -42,4 +42,5 @@ df2 = add_price_ppm2(df)
 summarize_market(df2, group_level="Regionname", metric="PricePerM2", top_n=None)
 summarize_market(df2, group_level="CouncilArea", metric="PricePerM2", top_n=20)
 summarize_market(df2, group_level="Suburb", metric="PricePerM2", top_n=20)
+
 print(df2)
