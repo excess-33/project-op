@@ -408,21 +408,19 @@ def export_analysis_report(df, output_dir='output', price_column='Price',
     print(f"\n ВСЕ 7 ГРАФИКОВ ГОТОВЫ!")
     print(f" Сохранены в папку: {output_dir}/")
     print("\nФайлы:")
-    print("  ✓ 01_main_dashboard.html")
-    print("  ✓ 02_price_distribution.html")
-    print("  ✓ 03_heatmap_prices.html")
-    print("  ✓ 04_box_plot.html")
-    print("  ✓ 05_top_listings.html")
-    print("  ✓ 06_correlation.html")
-    print("  ✓ 07_statistics.html")
+    print("01_main_dashboard.html")
+    print("02_price_distribution.html")
+    print("03_heatmap_prices.html")
+    print("04_box_plot.html")
+    print("05_top_listings.html")
+    print("06_correlation.html")
+    print("07_statistics.html")
 
 
 if __name__ == "__main__":
     """
     ТОЧКА ВХОДА: запуск анализа
-    
-    Просто скопируй в Google Colab или запусти в VS Code:
-    python visualization_advanced.py
+
     """
     
     import os
