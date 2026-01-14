@@ -7,7 +7,6 @@ def load_and_prepare(path: str) -> pd.DataFrame:
     df = pd.read_csv(path)
 
     
-    
      #делает даты настоящими объектами datetime
     if "Date" in df.columns:
         df["Date"] = pd.to_datetime(df["Date"], errors="coerce")
@@ -72,3 +71,4 @@ def split_by_type(df: pd.DataFrame) -> dict:
         "unit": df[df["Type"] == "u"].copy(),
         "townhouse": df[df["Type"] == "t"].copy()
     }
+
