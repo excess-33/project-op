@@ -1,20 +1,3 @@
-"""
-🏠 ВИЗУАЛИЗАТОР РЫНКА НЕДВИЖИМОСТИ МЕЛЬБУРНА
-Творческая часть: Интерактивные графики и анализ данных
-
-Автор: Подольнев Илья
-Задача: Визуализация датасета с объявлениями о продаже недвижимости
-
-ФУНКЦИОНАЛ:
-- 7 интерактивных HTML графиков
-- Анализ цен по районам
-- Гистограммы распределения цен
-- Выявление самых дорогих/дешевых предложений
-- Анализ по категориям (дом, квартира, апартаменты)
-- Корреляционный анализ
-- Статистическая сводка
-"""
-
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
@@ -74,7 +57,7 @@ def create_heatmap_prices_by_district(df, price_column='Price',
     ))
     
     fig.update_layout(
-        title='📊 Тепловая карта: Средние цены по районам и типам жилья',
+        title=' Тепловая карта: Средние цены по районам и типам жилья',
         xaxis_title='Тип жилья',
         yaxis_title='Район (Suburb)',
         height=600,
@@ -119,7 +102,7 @@ def create_price_distribution(df, price_column='Price'):
                   annotation_text=f'Медиана: ${median_price:,.0f}')
     
     fig.update_layout(
-        title='📈 Распределение цен на недвижимость',
+        title=' Распределение цен на недвижимость',
         xaxis_title='Цена ($)',
         yaxis_title='Количество объявлений',
         barmode='overlay',
@@ -138,7 +121,7 @@ def create_box_plot_outliers(df, price_column='Price', category_column='Type'):
     """
     
     fig = px.box(df, y=price_column, x=category_column, 
-                 title='📦 Анализ выбросов цен по типам жилья',
+                 title=' Анализ выбросов цен по типам жилья',
                  labels={price_column: 'Цена ($)', category_column: 'Тип жилья'},
                  color=category_column)
     
@@ -163,7 +146,7 @@ def create_top_bottom_listings(df, price_column='Price', category_column='Type')
     
     fig = make_subplots(
         rows=1, cols=2,
-        subplot_titles=('🏆 Топ 5 самых дорогих', '🏘️ Топ 5 самых дешевых'),
+        subplot_titles=(' Топ 5 самых дорогих', ' Топ 5 самых дешевых'),
         specs=[[{'type': 'bar'}, {'type': 'bar'}]]
     )
     
@@ -186,7 +169,7 @@ def create_top_bottom_listings(df, price_column='Price', category_column='Type')
     fig.update_xaxes(title_text='Цена ($)', row=1, col=1)
     fig.update_xaxes(title_text='Цена ($)', row=1, col=2)
     fig.update_layout(
-        title_text='💰 Самые дорогие и дешевые объявления',
+        title_text=' Самые дорогие и дешевые объявления',
         height=500,
         showlegend=False,
         **ThemeConfig.get_plotly_layout()
@@ -279,7 +262,7 @@ def create_comprehensive_dashboard(df, price_column='Price',
     fig.update_xaxes(title_text='Цена ($)', row=1, col=2)
     
     fig.update_layout(
-        title_text='📊 ГЛАВНЫЙ ДАШБОРД: Анализ рынка недвижимости Мельбурна',
+        title_text=' ГЛАВНЫЙ ДАШБОРД: Анализ рынка недвижимости Мельбурна',
         height=900,
         showlegend=False,
         **ThemeConfig.get_plotly_layout()
@@ -315,7 +298,7 @@ def create_correlation_matrix(df):
     ))
     
     fig.update_layout(
-        title='🔗 Матрица корреляций между показателями',
+        title=' Матрица корреляций между показателями',
         height=600,
         **ThemeConfig.get_plotly_layout()
     )
@@ -349,41 +332,41 @@ def export_analysis_report(df, output_dir='output', price_column='Price',
     import os
     os.makedirs(output_dir, exist_ok=True)
     
-    print("📊 Начинаем создание интерактивных графиков...")
+    print(" Начинаем создание интерактивных графиков...")
     
     # 1. Главный дашборд
-    print("  1️⃣  Создаю главный дашборд...")
+    print("  1️  Создаю главный дашборд...")
     dashboard = create_comprehensive_dashboard(df, price_column, district_column, category_column)
     dashboard.write_html(f'{output_dir}/01_main_dashboard.html')
     
     # 2. Распределение цен
-    print("  2️⃣  Создаю распределение цен...")
+    print("  2️  Создаю распределение цен...")
     price_dist = create_price_distribution(df, price_column)
     price_dist.write_html(f'{output_dir}/02_price_distribution.html')
     
     # 3. Тепловая карта
-    print("  3️⃣  Создаю тепловую карту...")
+    print("  3️  Создаю тепловую карту...")
     heatmap = create_heatmap_prices_by_district(df, price_column, district_column, category_column)
     heatmap.write_html(f'{output_dir}/03_heatmap_prices.html')
     
     # 4. Box plot
-    print("  4️⃣  Создаю анализ выбросов...")
+    print("  4️  Создаю анализ выбросов...")
     boxplot = create_box_plot_outliers(df, price_column, category_column)
     boxplot.write_html(f'{output_dir}/04_box_plot.html')
     
     # 5. Топ объявлений
-    print("  5️⃣  Создаю топ дорогих/дешевых...")
+    print("  5️  Создаю топ дорогих/дешевых...")
     top_bottom = create_top_bottom_listings(df, price_column, category_column)
     top_bottom.write_html(f'{output_dir}/05_top_listings.html')
     
     # 6. Корреляции
-    print("  6️⃣  Создаю корреляционный анализ...")
+    print("  6️  Создаю корреляционный анализ...")
     corr_fig, corr_matrix = create_correlation_matrix(df)
     if corr_fig:
         corr_fig.write_html(f'{output_dir}/06_correlation.html')
     
     # 7. Статистика
-    print("  7️⃣  Создаю статистическую сводку...")
+    print("  7️  Создаю статистическую сводку...")
     stats_df = pd.DataFrame({
         'Метрика': [
             'Общее количество',
@@ -416,14 +399,14 @@ def export_analysis_report(df, output_dir='output', price_column='Price',
     )])
     
     stats_fig.update_layout(
-        title='📋 Статистическая сводка',
+        title=' Статистическая сводка',
         height=400,
         **ThemeConfig.get_plotly_layout()
     )
     stats_fig.write_html(f'{output_dir}/07_statistics.html')
     
-    print(f"\n✅ ВСЕ 7 ГРАФИКОВ ГОТОВЫ!")
-    print(f"📁 Сохранены в папку: {output_dir}/")
+    print(f"\n ВСЕ 7 ГРАФИКОВ ГОТОВЫ!")
+    print(f" Сохранены в папку: {output_dir}/")
     print("\nФайлы:")
     print("  ✓ 01_main_dashboard.html")
     print("  ✓ 02_price_distribution.html")
@@ -449,8 +432,8 @@ if __name__ == "__main__":
     
     # Загружаем данные
     df = pd.read_csv('melb_data.csv')
-    print(f"✅ Загружено {len(df)} объявлений о недвижимости")
-    print(f"📍 Столбцы: {list(df.columns[:10])}")
+    print(f" Загружено {len(df)} объявлений о недвижимости")
+    print(f" Столбцы: {list(df.columns[:10])}")
     
     # Запускаем анализ
     export_analysis_report(
@@ -461,4 +444,4 @@ if __name__ == "__main__":
         category_column='Type'
     )
     
-    print("\n🎉 ГОТОВО! Открой HTML файлы в браузере!")
+    print("\n ГОТОВО! Открой HTML файлы в браузере!")
